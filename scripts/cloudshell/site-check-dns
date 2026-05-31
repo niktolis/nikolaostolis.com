@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+DOMAIN="${DOMAIN:-nikolaostolis.com}"
+WWW_DOMAIN="${WWW_DOMAIN:-www.${DOMAIN}}"
+
+echo "=== Default resolver ==="
+dig +short "$DOMAIN" A
+dig +short "$DOMAIN" TXT
+dig +short "$WWW_DOMAIN" CNAME
+
+echo
+echo "=== Cloudflare DNS 1.1.1.1 ==="
+dig @1.1.1.1 +short "$DOMAIN" A
+dig @1.1.1.1 +short "$DOMAIN" TXT
+dig @1.1.1.1 +short "$WWW_DOMAIN" CNAME
+
+echo
+echo "=== Google DNS 8.8.8.8 ==="
+dig @8.8.8.8 +short "$DOMAIN" A
+dig @8.8.8.8 +short "$DOMAIN" TXT
+dig @8.8.8.8 +short "$WWW_DOMAIN" CNAME

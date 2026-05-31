@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+PROJECT_ID="${PROJECT_ID:-nikolaos-tolis-site}"
+SITE_ID="${SITE_ID:-nikolaos-tolis-site}"
+DOMAIN="${DOMAIN:-nikolaostolis.com}"
+WWW_DOMAIN="${WWW_DOMAIN:-www.${DOMAIN}}"
+
+ACCESS_TOKEN="$(gcloud auth print-access-token)"
+
+echo "=== Root domain: $DOMAIN ==="
+curl -sS \
+  -H "Authorization: Bearer $ACCESS_TOKEN" \
+  "https://firebasehosting.googleapis.com/v1beta1/projects/$PROJECT_ID/sites/$SITE_ID/customDomains/$DOMAIN" \
+  | jq '{
+      domain: .name,
+      hostState,
+      ownershipState,
+      certState: .cert.state,
+      checkTime: .requiredDnsUpdates.checkTime,
+      requiredDnsUpdates
+    }'
+
+echo
+echo "=== WWW domain: $WWW_DOMAIN ==="
+curl -sS \
+  -H "Authorization: Bearer $ACCESS_TOKEN" \
+  "https://firebasehosting.googleapis.com/v1beta1/projects/$PROJECT_ID/sites/$SITE_ID/customDomains/$WWW_DOMAIN" \
+  | jq '{
+      domain: .name,
+      hostState,
+      ownershipState,
+      certState: .cert.state,
+      redirectTarget,
+      checkTime: .requiredDnsUpdates.checkTime,
+      requiredDnsUpdates
+    }'

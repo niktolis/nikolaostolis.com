@@ -1,0 +1,11 @@
+{
+  "hosting": {
+    "site": "nikolaos-tolis-site",
+    "public": "public",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}

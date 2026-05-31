@@ -1,0 +1,27 @@
+# Logs
+*.log
+firebase-debug.log
+
+# Environment files
+.env
+.env.*
+*.local
+
+# Secrets / service accounts
+*-key.json
+service-account*.json
+*.pem
+*.p12
+
+# Node / build artifacts
+node_modules/
+dist/
+.cache/
+
+# OS/editor files
+.DS_Store
+.vscode/
+.idea/
+
+# Firebase local cache
+.firebase/

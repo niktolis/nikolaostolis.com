@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+export PROJECT_ID="nikolaos-tolis-site"
+export SITE_ID="nikolaos-tolis-site"
+export DOMAIN="nikolaostolis.com"
+export WWW_DOMAIN="www.${DOMAIN}"
+
+gcloud config set project "$PROJECT_ID" >/dev/null
+
+export ACCESS_TOKEN="$(gcloud auth print-access-token)"
+
+echo "PROJECT_ID=$PROJECT_ID"
+echo "SITE_ID=$SITE_ID"
+echo "DOMAIN=$DOMAIN"
+echo "WWW_DOMAIN=$WWW_DOMAIN"
+echo "Active gcloud project: $(gcloud config get-value project)"
+echo "ACCESS_TOKEN length: ${#ACCESS_TOKEN}"
