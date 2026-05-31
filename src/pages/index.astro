@@ -1,0 +1,191 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import ExpertiseCard from "../components/ExpertiseCard.astro";
+
+const expertise = [
+  {
+    title: "Embedded & real-time software",
+    body: "C/C++, RTOS concepts, MCU bring-up, diagnostics, boot/update flows, and production-grade embedded software design."
+  },
+  {
+    title: "Automotive platforms",
+    body: "AUTOSAR Classic, UDS diagnostics, CAN/CAN FD, Ethernet-related integration, safety-oriented development, and platform software delivery."
+  },
+  {
+    title: "Architecture & technical leadership",
+    body: "System decomposition, cross-team integration, technical decision-making, requirements clarification, and pragmatic delivery under constraints."
+  }
+];
+---
+
+<BaseLayout>
+  <div class="page">
+    <Header />
+
+    <main>
+      <section class="hero">
+        <div class="eyebrow">Embedded software · Automotive systems · Software architecture</div>
+
+        <h1>Engineering reliable software for complex automotive and embedded systems.</h1>
+
+        <p class="lead">
+          I am an embedded software engineer focused on AUTOSAR Classic, diagnostics,
+          real-time systems, Linux, cloud-connected workflows, and software architecture
+          for automotive platforms.
+        </p>
+
+        <div class="actions">
+          <a class="button primary" href="mailto:contact@nikolaostolis.com">Contact me</a>
+          <a class="button secondary" href="https://github.com/niktolis">GitHub</a>
+          <a class="button secondary" href="https://www.linkedin.com/">LinkedIn</a>
+        </div>
+      </section>
+
+      <section id="expertise">
+        <div class="section-title">Core expertise</div>
+
+        <div class="grid">
+          {expertise.map((item) => <ExpertiseCard title={item.title} body={item.body} />)}
+        </div>
+      </section>
+
+      <section id="experience">
+        <div class="section-title">Selected focus areas</div>
+
+        <div class="timeline">
+          <div class="item">
+            <h3>Automotive ECU and platform software</h3>
+            <p>
+              Work across embedded platforms, diagnostics, communication stacks,
+              and integration topics for modern vehicle systems.
+            </p>
+          </div>
+
+          <div class="item">
+            <h3>Software-defined vehicle and open-source technologies</h3>
+            <p>
+              Interest in Linux, Zephyr, cloud-connected tooling, reproducible development,
+              and pragmatic use of open-source technologies in automotive contexts.
+            </p>
+          </div>
+
+          <div class="item">
+            <h3>Professional portfolio in progress</h3>
+            <p>
+              This website is being built as a central place for my engineering profile,
+              projects, writing, and future consulting or one-person company activities.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact">
+        <div class="section-title">Contact</div>
+
+        <div class="card">
+          <h3>Let’s connect</h3>
+          <p>
+            For now, reach me through GitHub or LinkedIn. Email routing for
+            <a href="mailto:contact@nikolaostolis.com">contact@nikolaostolis.com</a>
+            will be enabled once the domain email setup is finalized.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <Footer />
+  </div>
+</BaseLayout>
+
+<style>
+  .hero {
+    padding: 4rem 0 3rem;
+  }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.35rem 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    color: var(--accent);
+    background: var(--accent-soft);
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+  }
+
+  h1 {
+    max-width: 900px;
+    font-size: clamp(2.4rem, 7vw, 5rem);
+    line-height: 1.02;
+    letter-spacing: -0.05em;
+    margin: 0 0 1.5rem;
+  }
+
+  .lead {
+    max-width: 760px;
+    color: var(--muted);
+    font-size: clamp(1.1rem, 2vw, 1.35rem);
+    margin: 0 0 2rem;
+  }
+
+  .actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+  }
+
+  .button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    padding: 0.8rem 1.15rem;
+    font-weight: 650;
+    border: 1px solid var(--border);
+  }
+
+  .button.primary {
+    background: var(--accent);
+    color: #082f49;
+    border-color: transparent;
+  }
+
+  .button.secondary {
+    color: var(--text);
+    background: rgba(15, 23, 42, 0.45);
+  }
+
+  section {
+    margin-top: 4rem;
+  }
+
+  .timeline {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .item {
+    border-left: 2px solid var(--accent);
+    padding-left: 1rem;
+  }
+
+  .item h3 {
+    margin: 0 0 0.25rem;
+  }
+
+  .item p {
+    margin: 0;
+    color: var(--muted);
+  }
+
+  @media (max-width: 800px) {
+    .hero {
+      padding-top: 2rem;
+    }
+  }
+</style>

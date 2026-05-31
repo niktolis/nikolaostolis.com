@@ -17,6 +17,7 @@ service-account*.json
 node_modules/
 dist/
 .cache/
+.astro/
 
 # OS/editor files
 .DS_Store

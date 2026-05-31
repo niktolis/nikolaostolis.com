@@ -1,0 +1,20 @@
+---
+const { title, body } = Astro.props;
+---
+
+<article class="card expertise-card">
+  <h3>{title}</h3>
+  <p>{body}</p>
+</article>
+
+<style>
+  .expertise-card h3 {
+    margin: 0 0 0.5rem;
+    font-size: 1.05rem;
+  }
+
+  .expertise-card p {
+    margin: 0;
+    color: var(--muted);
+  }
+</style>
