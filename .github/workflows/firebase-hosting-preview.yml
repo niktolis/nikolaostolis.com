@@ -34,6 +34,13 @@ jobs:
             npm ci
             npm run build
 
+      - name: Upload build artifact
+        if: github.event_name == 'pull_request'
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-artifact
+          path: dist
+
       - name: Deploy to Firebase Hosting preview channel
         if: github.event_name == 'pull_request' && github.actor != 'dependabot[bot]' && github.event.pull_request.head.repo.full_name == github.repository
         uses: FirebaseExtended/action-hosting-deploy@e2eda2e106cfa35cdbcf4ac9ddaf6c4756df2c8c
@@ -58,22 +65,60 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout PR head commit
+      - name: Checkout base repository
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
         with:
-          ref: ${{ github.event.pull_request.head.sha }}
+          ref: ${{ github.event.pull_request.base.sha }}
 
-      - name: Set up Node.js
-        uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8
+      - name: Find successful pull_request build run
+        id: find_build_run
+        uses: actions/github-script@v7
         with:
-          node-version: 22
-          cache: npm
+          script: |
+            const { owner, repo } = context.repo;
+            const workflow_id = context.workflow;
+            const prNumber = context.payload.pull_request.number;
+            const headSha = context.payload.pull_request.head.sha;
+            let runId;
 
-      - name: Install dependencies
-        run: npm ci
+            for (let attempt = 0; attempt < 18; attempt++) {
+              const { data } = await github.rest.actions.listWorkflowRuns({
+                owner,
+                repo,
+                workflow_id,
+                event: "pull_request",
+                per_page: 50,
+              });
 
-      - name: Build site
-        run: npm run build
+              const matchingRun = data.workflow_runs.find((run) =>
+                run.head_sha === headSha &&
+                run.pull_requests.some((pr) => pr.number === prNumber) &&
+                run.status === "completed" &&
+                run.conclusion === "success",
+              );
+
+              if (matchingRun) {
+                runId = matchingRun.id;
+                break;
+              }
+
+              await new Promise((resolve) => setTimeout(resolve, 10000));
+            }
+
+            if (!runId) {
+              core.setFailed("Could not find a successful pull_request build run for this Dependabot PR.");
+              return;
+            }
+
+            core.setOutput("run_id", String(runId));
+
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: build-artifact
+          run-id: ${{ steps.find_build_run.outputs.run_id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: dist
 
       - name: Deploy to Firebase Hosting preview channel
         uses: FirebaseExtended/action-hosting-deploy@e2eda2e106cfa35cdbcf4ac9ddaf6c4756df2c8c
