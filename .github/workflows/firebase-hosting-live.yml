@@ -1,0 +1,37 @@
+name: Firebase Hosting Live
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  deploy-live:
+    name: deploy-live
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
+
+      - name: Build Astro site inside devcontainer
+        uses: devcontainers/ci@513af61f4de4f75d37e4438f184ba4358f0fc1ca
+        with:
+          runCmd: |
+            node --version
+            npm --version
+            firebase --version
+            npm ci
+            npm run build
+
+      - name: Deploy to Firebase Hosting live channel
+        uses: FirebaseExtended/action-hosting-deploy@e2eda2e106cfa35cdbcf4ac9ddaf6c4756df2c8c
+        with:
+          firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_NIKOLAOS_TOLIS_SITE }}"
+          projectId: nikolaos-tolis-site
+          channelId: live
+          firebaseToolsVersion: "15.19.0"
