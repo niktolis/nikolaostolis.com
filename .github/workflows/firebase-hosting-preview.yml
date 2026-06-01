@@ -135,6 +135,7 @@ jobs:
       (github.actor != 'dependabot[bot]' ||
       github.event.pull_request.head.repo.full_name != github.repository ||
       secrets.FIREBASE_SERVICE_ACCOUNT_NIKOLAOS_TOLIS_SITE == '')
+    permissions: {}
     runs-on: ubuntu-latest
 
     steps:
