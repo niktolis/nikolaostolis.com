@@ -10,6 +10,8 @@ firebase-debug.log
 # Secrets / service accounts
 *-key.json
 service-account*.json
+*credentials*.json
+*firebase*.json
 *.pem
 *.p12
 
@@ -21,7 +23,8 @@ dist/
 
 # OS/editor files
 .DS_Store
-.vscode/
+.vscode/*
+!.vscode/settings.json
 .idea/
 
 # Firebase local cache

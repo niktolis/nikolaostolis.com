@@ -7,7 +7,9 @@
     "dev": "astro dev --host 0.0.0.0",
     "build": "astro build",
     "preview": "astro preview --host 0.0.0.0",
-    "deploy": "npm run build && firebase deploy --only hosting --project nikolaos-tolis-site"
+    "deploy": "npm run build && firebase deploy --only hosting --project nikolaos-tolis-site",
+    "deploy:preview": "npm run build && firebase hosting:channel:deploy devcontainer-test --expires 7d --project nikolaos-tolis-site",
+    "deploy:preview:pr": "npm run build && firebase hosting:channel:deploy pr-local-test --expires 7d --project nikolaos-tolis-site"
   },
   "repository": {
     "type": "git",
@@ -23,6 +25,9 @@
   "homepage": "https://github.com/niktolis/nikolaostolis.com#readme",
   "dependencies": {
     "astro": "^6.4.2"
+  },
+  "engines": {
+    "node": ">=22.12.0 <23"
   },
   "private": true
 }

@@ -1,0 +1,40 @@
+name: Firebase Hosting Preview
+
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  checks: write
+  contents: read
+  pull-requests: write
+
+jobs:
+  build_and_preview:
+    name: Build and deploy PR preview
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build Astro site
+        run: npm run build
+
+      - name: Deploy to Firebase Hosting preview channel
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: "${{ secrets.GITHUB_TOKEN }}"
+          firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_NIKOLAOS_TOLIS_SITE }}"
+          projectId: nikolaos-tolis-site
+          expires: 7d
