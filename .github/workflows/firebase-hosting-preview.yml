@@ -4,6 +4,9 @@ on:
   pull_request:
     branches:
       - main
+  pull_request_target:
+    branches:
+      - main
   workflow_dispatch:
 
 permissions:
@@ -14,11 +17,12 @@ permissions:
 jobs:
   build:
     name: build
+    if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
 
       - name: Build Astro site inside devcontainer
         uses: devcontainers/ci@513af61f4de4f75d37e4438f184ba4358f0fc1ca
@@ -30,8 +34,39 @@ jobs:
             npm ci
             npm run build
 
+      - name: Skip preview deploy in pull_request workflow
+        if: github.event_name == 'pull_request'
+        run: |
+          echo "Preview deployment is handled by the pull_request_target job."
+          echo "This build job only validates the site without using repository secrets."
+
+  deploy_preview_dependabot:
+    name: deploy preview for dependabot
+    if: github.event_name == 'pull_request_target' &&
+      github.actor == 'dependabot[bot]' &&
+      github.event.pull_request.head.repo.full_name == github.repository &&
+      secrets.FIREBASE_SERVICE_ACCOUNT_NIKOLAOS_TOLIS_SITE != ''
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout PR head commit
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Set up Node.js
+        uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build site
+        run: npm run build
+
       - name: Deploy to Firebase Hosting preview channel
-        if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
         uses: FirebaseExtended/action-hosting-deploy@e2eda2e106cfa35cdbcf4ac9ddaf6c4756df2c8c
         with:
           repoToken: "${{ secrets.GITHUB_TOKEN }}"
@@ -40,8 +75,16 @@ jobs:
           expires: 7d
           firebaseToolsVersion: "15.19.0"
 
-      - name: Skip preview deploy for forked PR
-        if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name != github.repository
+  skip_preview_deploy:
+    name: skip preview deploy
+    if: github.event_name == 'pull_request_target' &&
+      (github.actor != 'dependabot[bot]' ||
+      github.event.pull_request.head.repo.full_name != github.repository ||
+      secrets.FIREBASE_SERVICE_ACCOUNT_NIKOLAOS_TOLIS_SITE == '')
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Explain why preview deploy was skipped
         run: |
-          echo "Skipping Firebase preview deploy because this PR comes from a fork."
-          echo "Build completed successfully, but repository secrets are unavailable to forked PRs."
+          echo "Skipping Firebase preview deploy."
+          echo "Preview deploys in this workflow are only enabled for same-repository Dependabot pull requests with the Firebase secret available."
