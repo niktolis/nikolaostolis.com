@@ -4,6 +4,7 @@ on:
   pull_request:
     branches:
       - main
+  workflow_dispatch:
 
 permissions:
   checks: write
@@ -11,8 +12,8 @@ permissions:
   pull-requests: write
 
 jobs:
-  build_and_preview:
-    name: Build and deploy PR preview
+  build:
+    name: build
     runs-on: ubuntu-latest
 
     steps:
@@ -22,7 +23,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
         with:
-          node-version-file: .nvmrc
+          node-version: 22
           cache: npm
 
       - name: Install dependencies
@@ -32,7 +33,7 @@ jobs:
         run: npm run build
 
       - name: Deploy to Firebase Hosting preview channel
-        if: github.event.pull_request.head.repo.full_name == github.repository
+        if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
         uses: FirebaseExtended/action-hosting-deploy@e2eda2e106cfa35cdbcf4ac9ddaf6c4756df2c8c
         with:
           repoToken: "${{ secrets.GITHUB_TOKEN }}"
@@ -42,7 +43,7 @@ jobs:
           firebaseToolsVersion: "15.19.0"
 
       - name: Skip preview deploy for forked PR
-        if: github.event.pull_request.head.repo.full_name != github.repository
+        if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name != github.repository
         run: |
           echo "Skipping Firebase preview deploy because this PR comes from a fork."
           echo "Build completed successfully, but repository secrets are unavailable to forked PRs."
