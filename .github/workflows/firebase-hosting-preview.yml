@@ -34,12 +34,21 @@ jobs:
             npm ci
             npm run build
 
-      - name: Skip preview deploy in pull_request workflow
-        if: github.event_name == 'pull_request'
-        run: |
-          echo "Preview deployment is handled by the pull_request_target job."
-          echo "This build job only validates the site without using repository secrets."
+      - name: Deploy to Firebase Hosting preview channel
+        if: github.event_name == 'pull_request' && github.actor != 'dependabot[bot]' && github.event.pull_request.head.repo.full_name == github.repository
+        uses: FirebaseExtended/action-hosting-deploy@e2eda2e106cfa35cdbcf4ac9ddaf6c4756df2c8c
+        with:
+          repoToken: "${{ secrets.GITHUB_TOKEN }}"
+          firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_NIKOLAOS_TOLIS_SITE }}"
+          projectId: nikolaos-tolis-site
+          expires: 7d
+          firebaseToolsVersion: "15.19.0"
 
+      - name: Skip preview deploy in pull_request workflow
+        if: github.event_name == 'pull_request' && (github.actor == 'dependabot[bot]' || github.event.pull_request.head.repo.full_name != github.repository)
+        run: |
+          echo "Skipping Firebase preview deploy in pull_request workflow."
+          echo "Forked PRs do not receive repository secrets; Dependabot preview deploys are handled by the pull_request_target job."
   deploy_preview_dependabot:
     name: deploy preview for dependabot
     if: github.event_name == 'pull_request_target' &&
