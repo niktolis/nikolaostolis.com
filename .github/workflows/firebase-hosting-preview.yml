@@ -20,17 +20,15 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
 
-      - name: Set up Node.js
-        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+      - name: Build Astro site inside devcontainer
+        uses: devcontainers/ci@513af61f4de4f75d37e4438f184ba4358f0fc1ca
         with:
-          node-version: 22
-          cache: npm
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Build Astro site
-        run: npm run build
+          runCmd: |
+            node --version
+            npm --version
+            firebase --version
+            npm ci
+            npm run build
 
       - name: Deploy to Firebase Hosting preview channel
         if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
