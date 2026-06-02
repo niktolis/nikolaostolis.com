@@ -128,11 +128,11 @@ const expertise = [
     align-items: center;
     gap: 0.5rem;
     padding: 0.35rem 0.75rem;
-    border: 1px solid var(--border);
-    border-radius: 999px;
-    color: var(--accent);
-    background: var(--accent-soft);
-    font-size: 0.9rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-pill);
+    color: var(--color-accent);
+    background: var(--color-accent-soft);
+    font-size: var(--text-eyebrow);
     margin-bottom: 1.5rem;
   }
 
@@ -146,7 +146,7 @@ const expertise = [
 
   .lead {
     max-width: 760px;
-    color: var(--muted);
+    color: var(--color-text-muted);
     font-size: clamp(1.1rem, 2vw, 1.35rem);
     margin: 0 0 2rem;
   }
@@ -162,21 +162,21 @@ const expertise = [
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    border-radius: 999px;
+    border-radius: var(--radius-pill);
     padding: 0.8rem 1.15rem;
     font-weight: 650;
-    border: 1px solid var(--border);
+    border: 1px solid var(--color-border);
   }
 
   .button.primary {
-    background: var(--accent);
-    color: #082f49;
+    background: var(--color-accent);
+    color: var(--color-accent-contrast);
     border-color: transparent;
   }
 
   .button.secondary {
-    color: var(--text);
-    background: rgba(15, 23, 42, 0.45);
+    color: var(--color-text-primary);
+    background: var(--color-surface-muted);
   }
 
   section {
@@ -189,7 +189,7 @@ const expertise = [
   }
 
   .item {
-    border-left: 2px solid var(--accent);
+    border-left: 2px solid var(--color-accent);
     padding-left: 1rem;
   }
 
@@ -199,7 +199,7 @@ const expertise = [
 
   .item p {
     margin: 0;
-    color: var(--muted);
+    color: var(--color-text-muted);
   }
 
   @media (max-width: 800px) {
