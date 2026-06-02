@@ -1,0 +1,32 @@
+:root {
+  color-scheme: dark;
+
+  --color-page-bg: #0f172a;
+  --color-page-bg-soft: #111827;
+  --color-surface: #1e293b;
+  --color-surface-muted: rgba(15, 23, 42, 0.45);
+
+  --color-text-primary: #e5e7eb;
+  --color-text-muted: #94a3b8;
+
+  --color-accent: #38bdf8;
+  --color-accent-contrast: #082f49;
+  --color-accent-soft: rgba(56, 189, 248, 0.12);
+
+  --color-border: rgba(148, 163, 184, 0.24);
+
+  --shadow-elevated: 0 24px 80px rgba(0, 0, 0, 0.18);
+
+  --gradient-page:
+    radial-gradient(
+      circle at top left,
+      rgba(56, 189, 248, 0.18),
+      transparent 32rem
+    ),
+    radial-gradient(
+      circle at bottom right,
+      rgba(59, 130, 246, 0.12),
+      transparent 30rem
+    ),
+    var(--color-page-bg);
+}
