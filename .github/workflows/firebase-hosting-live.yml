@@ -27,7 +27,7 @@ jobs:
             npm --version
             firebase --version
             npm ci
-            npm run build
+            npm run check
 
       - name: Deploy to Firebase Hosting live channel
         uses: FirebaseExtended/action-hosting-deploy@e2eda2e106cfa35cdbcf4ac9ddaf6c4756df2c8c

@@ -1,56 +1,128 @@
 # nikolaostolis.com
 
-Personal website and professional portfolio for Nikolaos Tolis.
+[![Firebase Hosting Live](https://github.com/niktolis/nikolaostolis.com/actions/workflows/firebase-hosting-live.yml/badge.svg)](https://github.com/niktolis/nikolaostolis.com/actions/workflows/firebase-hosting-live.yml)
+[![Firebase Hosting Preview](https://github.com/niktolis/nikolaostolis.com/actions/workflows/firebase-hosting-preview.yml/badge.svg)](https://github.com/niktolis/nikolaostolis.com/actions/workflows/firebase-hosting-preview.yml)
 
-The site is hosted on Firebase Hosting using the Google Cloud project:
+Personal website and professional portfolio for Nikolaos Tolis, built with [Astro](https://astro.build) and hosted on [Firebase Hosting](https://firebase.google.com/docs/hosting).
 
-    nikolaos-tolis-site
+**Live:** https://nikolaostolis.com
 
-Production domains:
+## Tech stack
 
-    https://nikolaostolis.com
-    https://www.nikolaostolis.com
+| Layer              | Technology                                 |
+| ------------------ | ------------------------------------------ |
+| Framework          | Astro 6 (static output)                    |
+| Hosting            | Firebase Hosting (`nikolaos-tolis-site`)   |
+| CI/CD              | GitHub Actions (devcontainer-based builds) |
+| DNS                | Cloudflare (DNS-only, no proxy)            |
+| Formatting         | Prettier with `prettier-plugin-astro`      |
+| Dependency updates | Dependabot (npm + GitHub Actions, weekly)  |
 
-`www.nikolaostolis.com` redirects to `nikolaostolis.com`.
+## Development environment
 
-## Deployment
+The repository ships a fully configured [Dev Container](https://containers.dev) — the recommended way to work on the project.
 
-From the repository root:
+### Prerequisites
 
-    firebase deploy --only hosting --project nikolaos-tolis-site
+- [Docker](https://docs.docker.com/get-docker/) (or a compatible container runtime)
+- [VS Code](https://code.visualstudio.com/) with the [Dev Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
 
-## Cloud Shell helpers
+### Setup
 
-From the repository root:
+1. Clone the repository.
+2. Open the folder in VS Code.
+3. When prompted, click **Reopen in Container** (or run `Dev Containers: Reopen in Container` from the command palette).
 
-    source scripts/cloudshell/site-env
-    scripts/cloudshell/site-check-dns
-    scripts/cloudshell/site-check-firebase
+The container will:
+
+- Start from the `mcr.microsoft.com/devcontainers/javascript-node:1-22-bookworm` base image (Node.js 22, Debian Bookworm).
+- Install Firebase CLI (`firebase-tools@15.19.0`) globally.
+- Install the GitHub CLI via the `ghcr.io/devcontainers/features/github-cli` feature.
+- Run `npm ci` automatically on creation.
+- Forward port `4321` for the Astro dev server.
+- Persist Firebase auth config across rebuilds via a named Docker volume.
+
+Included VS Code extensions: Astro, Prettier, ESLint, GitHub Pull Requests, and YAML support.
+
+### Without Dev Container
+
+Requires Node.js 22+ (see `.nvmrc`), npm, and Firebase CLI.
+
+```bash
+npm ci
+```
+
+## Available scripts
+
+| Command                     | Description                                             |
+| --------------------------- | ------------------------------------------------------- |
+| `npm run dev`               | Start Astro dev server (port 4321)                      |
+| `npm run build`             | Production build to `dist/`                             |
+| `npm run preview`           | Preview the built site locally                          |
+| `npm run format`            | Format all files with Prettier                          |
+| `npm run format:check`      | Check formatting without writing                        |
+| `npm run check`             | Format check + build (CI gate)                          |
+| `npm run deploy`            | Build and deploy to live channel                        |
+| `npm run deploy:preview`    | Build and deploy to a preview channel (7 day expiry)    |
+| `npm run deploy:preview:pr` | Build and deploy to a PR preview channel (7 day expiry) |
+| `npm run readme:structure`  | Regenerate the project structure tree in README.md      |
+
+## Project structure
+
+<!-- PROJECT_STRUCTURE_START -->
+
+```
+src/
+  ├── components/
+  │   ├── ExpertiseCard.astro
+  │   ├── Footer.astro
+  │   └── Header.astro
+  ├── layouts/
+  │   └── BaseLayout.astro
+  └── pages/
+      ├── contact.astro
+      ├── cv.astro
+      ├── index.astro
+      ├── projects.astro
+      └── writing.astro
+public/
+  └── favicon.svg
+scripts/
+  ├── cloudshell/
+  │   ├── README.md
+  │   ├── site-check-dns
+  │   ├── site-check-firebase
+  │   └── site-env
+  └── update-readme-structure.mjs
+.devcontainer/
+  ├── devcontainer.json
+  └── Dockerfile
+.github/
+  ├── workflows/
+  │   ├── firebase-hosting-live.yml
+  │   └── firebase-hosting-preview.yml
+  └── dependabot.yml
+```
+
+<!-- PROJECT_STRUCTURE_END -->
+
+## CI/CD
+
+Two GitHub Actions workflows run builds inside the Dev Container image:
+
+- **Live** — Triggered on push to `main`. Builds, checks, and deploys to the Firebase Hosting live channel.
+- **Preview** — Triggered on pull requests to `main`. Builds and deploys a temporary preview channel for same-repo PRs. Forks and Dependabot PRs are build-only (no deploy).
+
+Both workflows use pinned action SHAs and a Firebase service account secret (`FIREBASE_SERVICE_ACCOUNT_NIKOLAOS_TOLIS_SITE`).
+
+A `cloudbuild.yaml` is also present as an alternative GCP-native build option.
 
 ## DNS
 
-The DNS zone is managed in Cloudflare.
+Managed in Cloudflare. All Firebase Hosting records must remain **DNS-only** (grey-cloud, not proxied).
 
-All Firebase Hosting records should remain DNS-only in Cloudflare.
+`www.nikolaostolis.com` redirects to `nikolaostolis.com`.
 
-## CI/CD with Cloud Build
+## Cloud Shell helpers
 
-A `cloudbuild.yaml` file is included for future Cloud Build deployment.
-
-Current status:
-
-    Cloud Build API is not enabled because the Google Cloud project has no billing account attached.
-
-When billing is enabled later, continue with:
-
-    gcloud services enable cloudbuild.googleapis.com --project nikolaos-tolis-site
-
-Then create a Cloud Build GitHub trigger for:
-
-    Repository: niktolis/nikolaostolis.com
-    Branch: ^main$
-    Build config: cloudbuild.yaml
-
-Until then, deploy manually with:
-
-    firebase deploy --only hosting --project nikolaos-tolis-site
+Helper scripts in `scripts/cloudshell/` for verifying DNS propagation and Firebase Hosting domain status. See [scripts/cloudshell/README.md](scripts/cloudshell/README.md) for usage details.
