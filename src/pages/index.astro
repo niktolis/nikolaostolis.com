@@ -7,16 +7,16 @@ import ExpertiseCard from "../components/ExpertiseCard.astro";
 const expertise = [
   {
     title: "Embedded & real-time software",
-    body: "C/C++, RTOS concepts, MCU bring-up, diagnostics, boot/update flows, and production-grade embedded software design."
+    body: "C/C++, RTOS concepts, MCU bring-up, diagnostics, boot/update flows, and production-grade embedded software design.",
   },
   {
     title: "Automotive platforms",
-    body: "AUTOSAR Classic, UDS diagnostics, CAN/CAN FD, Ethernet-related integration, safety-oriented development, and platform software delivery."
+    body: "AUTOSAR Classic, UDS diagnostics, CAN/CAN FD, Ethernet-related integration, safety-oriented development, and platform software delivery.",
   },
   {
     title: "Architecture & technical leadership",
-    body: "System decomposition, cross-team integration, technical decision-making, requirements clarification, and pragmatic delivery under constraints."
-  }
+    body: "System decomposition, cross-team integration, technical decision-making, requirements clarification, and pragmatic delivery under constraints.",
+  },
 ];
 ---
 
@@ -26,20 +26,37 @@ const expertise = [
 
     <main>
       <section class="hero">
-        <div class="eyebrow">Software Architecture · Embedded Software · Automotive Systems</div>
+        <div class="eyebrow">
+          Software Architecture · Embedded Software · Automotive Systems
+        </div>
 
-        <h1>Engineering reliable software for complex automotive and embedded systems.</h1>
+        <h1>
+          Engineering reliable software for complex automotive and embedded
+          systems.
+        </h1>
 
         <p class="lead">
-          I am an embedded software engineer focused on AUTOSAR Classic, diagnostics,
-          real-time systems, Linux, cloud-connected workflows, and software architecture
-          for automotive platforms.
+          I am an embedded software engineer focused on AUTOSAR Classic,
+          diagnostics, real-time systems, Linux, cloud-connected workflows, and
+          software architecture for automotive platforms.
         </p>
 
         <div class="actions">
-          <a class="button primary" href="mailto:contact@nikolaostolis.com">Contact me</a>
-          <a class="button secondary" href="https://github.com/niktolis" target="_blank" rel="noopener noreferrer">GitHub</a>
-          <a class="button secondary" href="https://www.linkedin.com/in/niktolis" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          <a class="button primary" href="mailto:contact@nikolaostolis.com"
+            >Contact me</a
+          >
+          <a
+            class="button secondary"
+            href="https://github.com/niktolis"
+            target="_blank"
+            rel="noopener noreferrer">GitHub</a
+          >
+          <a
+            class="button secondary"
+            href="https://www.linkedin.com/in/niktolis"
+            target="_blank"
+            rel="noopener noreferrer">LinkedIn</a
+          >
         </div>
       </section>
 
@@ -47,7 +64,11 @@ const expertise = [
         <div class="section-title">Core expertise</div>
 
         <div class="grid">
-          {expertise.map((item) => <ExpertiseCard title={item.title} body={item.body} />)}
+          {
+            expertise.map((item) => (
+              <ExpertiseCard title={item.title} body={item.body} />
+            ))
+          }
         </div>
       </section>
 
@@ -66,16 +87,18 @@ const expertise = [
           <div class="item">
             <h3>Software-defined vehicle and open-source technologies</h3>
             <p>
-              Interest in Linux, Zephyr, cloud-connected tooling, reproducible development,
-              and pragmatic use of open-source technologies in automotive contexts.
+              Interest in Linux, Zephyr, cloud-connected tooling, reproducible
+              development, and pragmatic use of open-source technologies in
+              automotive contexts.
             </p>
           </div>
 
           <div class="item">
             <h3>Professional portfolio in progress</h3>
             <p>
-              This website is being built as a central place for my engineering profile,
-              projects, writing, and future consulting or one-person company activities.
+              This website is being built as a central place for my engineering
+              profile, projects, writing, and future consulting or one-person
+              company activities.
             </p>
           </div>
         </div>
@@ -86,9 +109,7 @@ const expertise = [
 
         <div class="card">
           <h3>Let’s connect</h3>
-          <p>
-            For now, reach me through GitHub, LinkedIn or Email.
-          </p>
+          <p>For now, reach me through GitHub, LinkedIn or Email.</p>
         </div>
       </section>
     </main>

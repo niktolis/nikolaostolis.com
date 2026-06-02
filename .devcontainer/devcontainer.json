@@ -6,6 +6,12 @@
   "features": {
     "ghcr.io/devcontainers/features/github-cli:1": {}
   },
+  "containerEnv": {
+    "PROJECT_ID": "nikolaos-tolis-site",
+    "SITE_ID": "nikolaos-tolis-site",
+    "DOMAIN": "nikolaostolis.com",
+    "WWW_DOMAIN": "www.nikolaostolis.com"
+  },
   "forwardPorts": [4321],
   "portsAttributes": {
     "4321": {
