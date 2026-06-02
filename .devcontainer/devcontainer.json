@@ -3,6 +3,7 @@
   "build": {
     "dockerfile": "Dockerfile"
   },
+  "remoteUser": "node",
   "features": {
     "ghcr.io/devcontainers/features/github-cli:1": {}
   },
@@ -12,6 +13,11 @@
     "DOMAIN": "nikolaostolis.com",
     "WWW_DOMAIN": "www.nikolaostolis.com"
   },
+  "remoteEnv": {
+    "NPM_CONFIG_CACHE": "/home/node/.npm",
+    "STARSHIP_CONFIG": "/workspaces/nikolaostolis.com/.devcontainer/starship.toml"
+  },
+  "initializeCommand": "mkdir -p \"$HOME/DevContainerShare/nikolaostolis.com\"",
   "forwardPorts": [4321],
   "portsAttributes": {
     "4321": {
@@ -20,9 +26,13 @@
     }
   },
   "mounts": [
-    "source=nikolaostolis-firebase-config,target=/home/node/.config,type=volume"
+    "source=nikolaostolis-firebase-config,target=/home/node/.config,type=volume",
+    "source=nikolaostolis-fish-data,target=/home/node/.local/share/fish,type=volume",
+    "source=nikolaostolis-npm-cache,target=/home/node/.npm,type=volume",
+    "source=${localEnv:HOME}/DevContainerShare/nikolaostolis.com,target=/home/node/host-share,type=bind,consistency=cached"
   ],
-  "postCreateCommand": "npm ci",
+  "postCreateCommand": "npm ci && mkdir -p /home/node/.config/fish /home/node/commandhistory /home/node/host-share && ln -sf /workspaces/nikolaostolis.com/.devcontainer/fish/config.fish /home/node/.config/fish/config.fish",
+  "postAttachCommand": "echo '\nDevcontainer ready.\n\nShell:\n  fish + starship\n\nCommon commands:\n  dev\n  check\n  fmt\n  preview\n  preview-deploy\n  live-deploy\n\nHost exchange folder:\n  /home/node/host-share\n'",
   "customizations": {
     "vscode": {
       "extensions": [
@@ -30,14 +40,16 @@
         "esbenp.prettier-vscode",
         "dbaeumer.vscode-eslint",
         "github.vscode-pull-request-github",
-        "redhat.vscode-yaml"
+        "redhat.vscode-yaml",
+        "timonwong.shellcheck",
+        "streetsidesoftware.code-spell-checker",
+        "tamasfe.even-better-toml"
       ],
       "settings": {
         "editor.formatOnSave": true,
         "editor.defaultFormatter": "esbenp.prettier-vscode",
         "files.trimTrailingWhitespace": true,
-        "files.insertFinalNewline": true,
-        "terminal.integrated.defaultProfile.linux": "zsh"
+        "files.insertFinalNewline": true
       }
     }
   }
