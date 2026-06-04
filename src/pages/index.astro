@@ -4,97 +4,51 @@ import ExpertiseCard from "../components/ExpertiseCard.astro";
 import ButtonLink from "../components/ui/ButtonLink.astro";
 import PageShell from "../components/layout/PageShell.astro";
 import Section from "../components/layout/Section.astro";
-
-const expertise = [
-  {
-    title: "Embedded & real-time software",
-    body: "C/C++, RTOS concepts, MCU bring-up, diagnostics, boot/update flows, and production-grade embedded software design.",
-  },
-  {
-    title: "Automotive platforms",
-    body: "AUTOSAR Classic, UDS diagnostics, CAN/CAN FD, Ethernet-related integration, safety-oriented development, and platform software delivery.",
-  },
-  {
-    title: "Architecture & technical leadership",
-    body: "System decomposition, cross-team integration, technical decision-making, requirements clarification, and pragmatic delivery under constraints.",
-  },
-];
+import { contactCta, expertise, focusAreas, hero } from "../content/profile";
 ---
 
 <BaseLayout>
   <PageShell>
     <main>
       <Section class="hero" spacing="none">
-        <div class="eyebrow">
-          Software Architecture · Embedded Software · Automotive Systems
-        </div>
+        <div class="eyebrow">{hero.eyebrow}</div>
 
-        <h1>
-          Engineering reliable software for complex automotive and embedded
-          systems.
-        </h1>
+        <h1>{hero.title}</h1>
 
-        <p class="lead">
-          I am an embedded software engineer focused on AUTOSAR Classic,
-          diagnostics, real-time systems, Linux, cloud-connected workflows, and
-          software architecture for automotive platforms.
-        </p>
+        <p class="lead">{hero.lead}</p>
 
         <div class="actions">
-          <ButtonLink href="/contact" variant="primary">Contact me</ButtonLink>
-          <ButtonLink href="https://github.com/niktolis" target="_blank">
-            GitHub
-          </ButtonLink>
-          <ButtonLink href="https://www.linkedin.com/in/..." target="_blank">
-            LinkedIn
-          </ButtonLink>
-        </div>
-      </Section>
-
-      <Section id="expertise" title="Core expertise">
-        <div class="grid">
           {
-            expertise.map((item) => (
-              <ExpertiseCard title={item.title} body={item.body} />
+            hero.links.map((link) => (
+              <ButtonLink
+                href={link.href}
+                variant={link.variant ?? "secondary"}
+                target={link.target}
+              >
+                {link.label}
+              </ButtonLink>
             ))
           }
         </div>
       </Section>
 
-      <Section id="experience" title="Recent focus">
+      <Section id="experience" title="Selected focus areas">
         <div class="timeline">
-          <div class="item">
-            <h3>Automotive ECU and platform software</h3>
-            <p>
-              Work across embedded platforms, diagnostics, communication stacks,
-              and integration topics for modern vehicle systems.
-            </p>
-          </div>
-
-          <div class="item">
-            <h3>Software-defined vehicle and open-source technologies</h3>
-            <p>
-              Interest in Linux, Zephyr, cloud-connected tooling, reproducible
-              development, and pragmatic use of open-source technologies in
-              automotive contexts.
-            </p>
-          </div>
-
-          <div class="item">
-            <h3>Professional portfolio in progress</h3>
-            <p>
-              This website is being built as a central place for my engineering
-              profile, projects, writing, and future consulting or one-person
-              company activities.
-            </p>
-          </div>
+          {
+            focusAreas.map((item) => (
+              <div class="item">
+                <h3>{item.title}</h3>
+                <p>{item.body}</p>
+              </div>
+            ))
+          }
         </div>
       </Section>
 
       <Section id="contact" title="Contact">
         <div class="card">
-          <h3>Let’s connect</h3>
-          <p>For now, reach me through GitHub, LinkedIn or Email.</p>
+          <h3>{contactCta.title}</h3>
+          <p>{contactCta.body}</p>
         </div>
       </Section>
     </main>
