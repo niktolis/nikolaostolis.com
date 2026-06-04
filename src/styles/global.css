@@ -1,6 +1,6 @@
 @import "./reset.css";
 @import "./tokens.css";
-@import "./themes/professional-dark.css";
+@import "./theme.css";
 
 body {
   font-family: var(--font-sans);
