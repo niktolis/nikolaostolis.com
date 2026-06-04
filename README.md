@@ -74,17 +74,31 @@ npm ci
 ```
 src/
   ├── components/
-  │   ├── ExpertiseCard.astro
-  │   ├── Footer.astro
-  │   └── Header.astro
+  │   ├── layout/
+  │   │   ├── ButtonLink.astro
+  │   │   ├── PageShell.astro
+  │   │   ├── Section.astro
+  │   │   ├── SiteFooter.astro
+  │   │   └── SiteHeader.astro
+  │   ├── ui/
+  │   └── ExpertiseCard.astro
   ├── layouts/
   │   └── BaseLayout.astro
-  └── pages/
-      ├── contact.astro
-      ├── cv.astro
-      ├── index.astro
-      ├── projects.astro
-      └── writing.astro
+  ├── pages/
+  │   ├── contact.astro
+  │   ├── cv.astro
+  │   ├── index.astro
+  │   ├── projects.astro
+  │   └── writing.astro
+  └── styles/
+      ├── themes/
+      │   ├── professional-dark.css
+      │   ├── professional-light.css
+      │   └── README.md
+      ├── global.css
+      ├── reset.css
+      ├── theme.css
+      └── tokens.css
 public/
   └── favicon.svg
 scripts/
@@ -95,8 +109,11 @@ scripts/
   │   └── site-env
   └── update-readme-structure.mjs
 .devcontainer/
+  ├── fish/
+  │   └── config.fish
   ├── devcontainer.json
-  └── Dockerfile
+  ├── Dockerfile
+  └── starship.toml
 .github/
   ├── workflows/
   │   ├── firebase-hosting-live.yml
