@@ -75,12 +75,12 @@ npm ci
 src/
   ├── components/
   │   ├── layout/
-  │   │   ├── ButtonLink.astro
   │   │   ├── PageShell.astro
   │   │   ├── Section.astro
   │   │   ├── SiteFooter.astro
   │   │   └── SiteHeader.astro
   │   ├── ui/
+  │   │   └── ButtonLink.astro
   │   └── ExpertiseCard.astro
   ├── layouts/
   │   └── BaseLayout.astro
