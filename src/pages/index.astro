@@ -1,8 +1,9 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import Header from "../components/Header.astro";
-import Footer from "../components/Footer.astro";
 import ExpertiseCard from "../components/ExpertiseCard.astro";
+import SiteHeader from "../components/layout/SiteHeader.astro";
+import SiteFooter from "../components/layout/SiteFooter.astro";
+import ButtonLink from "../components/layout/ButtonLink.astro";
 
 const expertise = [
   {
@@ -22,7 +23,7 @@ const expertise = [
 
 <BaseLayout>
   <div class="page">
-    <Header />
+    <SiteHeader />
 
     <main>
       <section class="hero">
@@ -41,23 +42,13 @@ const expertise = [
           software architecture for automotive platforms.
         </p>
 
-        <div class="actions">
-          <a class="button primary" href="mailto:contact@nikolaostolis.com"
-            >Contact me</a
-          >
-          <a
-            class="button secondary"
-            href="https://github.com/niktolis"
-            target="_blank"
-            rel="noopener noreferrer">GitHub</a
-          >
-          <a
-            class="button secondary"
-            href="https://www.linkedin.com/in/niktolis"
-            target="_blank"
-            rel="noopener noreferrer">LinkedIn</a
-          >
-        </div>
+        <ButtonLink href="/contact" variant="primary">Contact me</ButtonLink>
+        <ButtonLink href="https://github.com/niktolis" target="_blank"
+          >GitHub</ButtonLink
+        >
+        <ButtonLink href="https://www.linkedin.com/in/..." target="_blank"
+          >LinkedIn</ButtonLink
+        >
       </section>
 
       <section id="expertise">
@@ -114,7 +105,7 @@ const expertise = [
       </section>
     </main>
 
-    <Footer />
+    <SiteFooter />
   </div>
 </BaseLayout>
 
@@ -156,27 +147,6 @@ const expertise = [
     gap: 1rem;
     flex-wrap: wrap;
     margin-top: 2rem;
-  }
-
-  .button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: var(--radius-pill);
-    padding: 0.8rem 1.15rem;
-    font-weight: 650;
-    border: 1px solid var(--color-border);
-  }
-
-  .button.primary {
-    background: var(--color-accent);
-    color: var(--color-accent-contrast);
-    border-color: transparent;
-  }
-
-  .button.secondary {
-    color: var(--color-text-primary);
-    background: var(--color-surface-muted);
   }
 
   section {
