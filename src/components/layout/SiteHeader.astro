@@ -11,40 +11,48 @@ import { navigationLinks, site } from "../../config/site";
 </header>
 
 <style>
-  .site-header {
+  header {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    gap: 1rem;
-    padding: 1rem 0 3rem;
+    justify-content: space-between;
+    gap: var(--space-md) var(--space-xl);
+    padding-block: var(--space-lg);
   }
 
   .brand {
-    color: var(--color-text-primary);
-    font-weight: 750;
-    letter-spacing: 0.02em;
-  }
-
-  .brand:hover {
+    color: var(--color-accent);
+    font-size: 1.1rem;
+    font-weight: 700;
     text-decoration: none;
   }
 
   nav {
     display: flex;
-    gap: 1rem;
+    align-items: center;
+    gap: var(--space-lg);
     flex-wrap: wrap;
-    font-size: 0.95rem;
   }
 
   nav a {
     color: var(--color-text-muted);
+    font-weight: 650;
+    text-decoration: none;
   }
 
-  @media (max-width: 800px) {
-    .site-header {
+  nav a:hover {
+    color: var(--color-text-primary);
+    text-decoration: none;
+  }
+
+  @media (max-width: 720px) {
+    header {
       align-items: flex-start;
       flex-direction: column;
-      padding-bottom: 2rem;
+      padding-block: var(--space-md);
+    }
+
+    nav {
+      gap: var(--space-md);
     }
   }
 </style>

@@ -57,42 +57,45 @@ import { contactCta, expertise, focusAreas, hero } from "../content/profile";
 
 <style>
   .hero {
-    padding: 4rem 0 3rem;
+    padding-block: clamp(3.5rem, 8vw, 6.5rem) var(--space-2xl);
   }
 
   .eyebrow {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
+    width: fit-content;
+    max-width: 100%;
     padding: 0.35rem 0.75rem;
     border: 1px solid var(--color-border);
     border-radius: var(--radius-pill);
     color: var(--color-accent);
     background: var(--color-accent-soft);
     font-size: var(--text-eyebrow);
-    margin-bottom: 1.5rem;
+    margin-bottom: var(--space-xl);
   }
 
   h1 {
-    max-width: 900px;
-    font-size: clamp(2.4rem, 7vw, 5rem);
-    line-height: 1.02;
-    letter-spacing: -0.05em;
-    margin: 0 0 1.5rem;
+    max-width: min(100%, clamp(11.5ch, 62vw, 14ch));
+    font-size: clamp(3.25rem, 8vw, 6.25rem);
+    line-height: 0.98;
+    letter-spacing: -0.06em;
+    margin: 0 0 var(--space-xl);
+    text-wrap: balance;
   }
 
   .lead {
     max-width: 760px;
     color: var(--color-text-muted);
     font-size: clamp(1.1rem, 2vw, 1.35rem);
-    margin: 0 0 2rem;
+    margin: 0;
   }
 
   .actions {
     display: flex;
-    gap: 1rem;
+    gap: var(--space-md);
     flex-wrap: wrap;
-    margin-top: 2rem;
+    margin-top: var(--space-xl);
   }
 
   .timeline {
@@ -115,8 +118,10 @@ import { contactCta, expertise, focusAreas, hero } from "../content/profile";
   }
 
   @media (max-width: 800px) {
-    .hero {
-      padding-top: 2rem;
+    h1 {
+      max-width: 100%;
+      font-size: clamp(2.5rem, 14vw, 4rem);
+      letter-spacing: -0.045em;
     }
   }
 </style>
