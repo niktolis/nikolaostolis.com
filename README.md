@@ -82,6 +82,8 @@ src/
   │   ├── ui/
   │   │   └── ButtonLink.astro
   │   └── ExpertiseCard.astro
+  ├── config/
+  │   └── site.ts
   ├── content/
   │   └── profile.ts
   ├── layouts/

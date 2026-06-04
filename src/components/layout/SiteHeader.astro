@@ -1,11 +1,12 @@
-<header class="site-header">
-  <a class="brand" href="/">Nikolaos Tolis</a>
+---
+import { navigationLinks, site } from "../../config/site";
+---
+
+<header>
+  <a href="/">{site.name}</a>
 
   <nav aria-label="Main navigation">
-    <a href="/cv/">CV</a>
-    <a href="/projects/">Projects</a>
-    <a href="/writing/">Writing</a>
-    <a href="/contact/">Contact</a>
+    {navigationLinks.map((link) => <a href={link.href}>{link.label}</a>)}
   </nav>
 </header>
 

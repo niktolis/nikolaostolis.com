@@ -1,9 +1,8 @@
 ---
 import "../styles/global.css";
-const {
-  title = "Nikolaos Tolis | Embedded Software & Automotive Systems",
-  description = "Personal website and professional portfolio of Nikolaos Tolis, embedded software engineer focused on automotive systems, AUTOSAR, Linux, cloud, and software architecture.",
-} = Astro.props;
+import { site } from "../config/site";
+
+const { title = site.title, description = site.description } = Astro.props;
 ---
 
 <!doctype html>

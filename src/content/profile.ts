@@ -1,34 +1,11 @@
-type ButtonVariant = "primary" | "secondary";
-
-interface HeroLink {
-  label: string;
-  href: string;
-  variant?: ButtonVariant;
-  target?: "_blank";
-}
+import { heroLinks } from "../config/site";
 
 export const hero = {
   eyebrow: "Software Architecture · Embedded Software · Automotive Systems",
   title:
     "Engineering reliable software for complex automotive and embedded systems.",
   lead: "I am an embedded software engineer focused on AUTOSAR Classic, diagnostics, real-time systems, Linux, cloud-connected workflows, and software architecture for automotive platforms.",
-  links: [
-    {
-      label: "Contact me",
-      href: "/contact",
-      variant: "primary",
-    },
-    {
-      label: "GitHub",
-      href: "https://github.com/niktolis",
-      target: "_blank",
-    },
-    {
-      label: "LinkedIn",
-      href: "https://www.linkedin.com/in/niktolis",
-      target: "_blank",
-    },
-  ] satisfies HeroLink[],
+  links: heroLinks,
 } as const;
 
 export const expertise = [
