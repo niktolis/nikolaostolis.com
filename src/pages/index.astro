@@ -24,7 +24,7 @@ const expertise = [
 <BaseLayout>
   <PageShell>
     <main>
-      <section class="hero">
+      <Section class="hero" spacing="none">
         <div class="eyebrow">
           Software Architecture · Embedded Software · Automotive Systems
         </div>
@@ -40,14 +40,16 @@ const expertise = [
           software architecture for automotive platforms.
         </p>
 
-        <ButtonLink href="/contact" variant="primary">Contact me</ButtonLink>
-        <ButtonLink href="https://github.com/niktolis" target="_blank"
-          >GitHub</ButtonLink
-        >
-        <ButtonLink href="https://www.linkedin.com/in/..." target="_blank"
-          >LinkedIn</ButtonLink
-        >
-      </section>
+        <div class="actions">
+          <ButtonLink href="/contact" variant="primary">Contact me</ButtonLink>
+          <ButtonLink href="https://github.com/niktolis" target="_blank">
+            GitHub
+          </ButtonLink>
+          <ButtonLink href="https://www.linkedin.com/in/..." target="_blank">
+            LinkedIn
+          </ButtonLink>
+        </div>
+      </Section>
 
       <Section id="expertise" title="Core expertise">
         <div class="grid">
