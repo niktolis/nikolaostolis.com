@@ -1,9 +1,8 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import ExpertiseCard from "../components/ExpertiseCard.astro";
-import SiteHeader from "../components/layout/SiteHeader.astro";
-import SiteFooter from "../components/layout/SiteFooter.astro";
 import ButtonLink from "../components/layout/ButtonLink.astro";
+import PageShell from "../components/layout/PageShell.astro";
 
 const expertise = [
   {
@@ -22,9 +21,7 @@ const expertise = [
 ---
 
 <BaseLayout>
-  <div class="page">
-    <SiteHeader />
-
+  <PageShell>
     <main>
       <section class="hero">
         <div class="eyebrow">
@@ -104,9 +101,7 @@ const expertise = [
         </div>
       </section>
     </main>
-
-    <SiteFooter />
-  </div>
+  </PageShell>
 </BaseLayout>
 
 <style>
