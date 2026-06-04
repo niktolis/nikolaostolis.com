@@ -17,4 +17,7 @@
 
   --text-eyebrow: 0.9rem;
   --text-section-title: 0.95rem;
+
+  --section-spacing: 4rem;
+  --section-spacing-mobile: 3rem;
 }
