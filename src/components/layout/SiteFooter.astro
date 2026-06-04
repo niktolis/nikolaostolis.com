@@ -1,5 +1,12 @@
-<footer class="site-footer">
-  © 2026 Nikolaos Tolis. Built with Astro, Firebase Hosting, and Google Cloud.
+---
+import { site } from "../../config/site";
+
+const year = new Date().getFullYear();
+---
+
+<footer>
+  © {year}
+  {site.name}. {site.footerText}
 </footer>
 
 <style>
