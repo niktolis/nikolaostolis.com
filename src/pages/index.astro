@@ -3,6 +3,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import ExpertiseCard from "../components/ExpertiseCard.astro";
 import ButtonLink from "../components/layout/ButtonLink.astro";
 import PageShell from "../components/layout/PageShell.astro";
+import Section from "../components/layout/Section.astro";
 
 const expertise = [
   {
@@ -48,9 +49,7 @@ const expertise = [
         >
       </section>
 
-      <section id="expertise">
-        <div class="section-title">Core expertise</div>
-
+      <Section id="expertise" title="Core expertise">
         <div class="grid">
           {
             expertise.map((item) => (
@@ -58,11 +57,9 @@ const expertise = [
             ))
           }
         </div>
-      </section>
+      </Section>
 
-      <section id="experience">
-        <div class="section-title">Selected focus areas</div>
-
+      <Section id="experience" title="Recent focus">
         <div class="timeline">
           <div class="item">
             <h3>Automotive ECU and platform software</h3>
@@ -90,16 +87,14 @@ const expertise = [
             </p>
           </div>
         </div>
-      </section>
+      </Section>
 
-      <section id="contact">
-        <div class="section-title">Contact</div>
-
+      <Section id="contact" title="Contact">
         <div class="card">
           <h3>Let’s connect</h3>
           <p>For now, reach me through GitHub, LinkedIn or Email.</p>
         </div>
-      </section>
+      </Section>
     </main>
   </PageShell>
 </BaseLayout>
@@ -142,10 +137,6 @@ const expertise = [
     gap: 1rem;
     flex-wrap: wrap;
     margin-top: 2rem;
-  }
-
-  section {
-    margin-top: 4rem;
   }
 
   .timeline {

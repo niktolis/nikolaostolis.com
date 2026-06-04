@@ -1,12 +1,26 @@
 ---
 interface Props {
+  id?: string;
   title?: string;
+  class?: string;
 }
 
-const { title } = Astro.props;
+const { id, title, class: className } = Astro.props;
 ---
 
-<section>
-  {title && <h2 class="section-title">{title}</h2>}
+<section id={id} class:list={["section", className]}>
+  {title && <div class="section-title">{title}</div>}
   <slot />
 </section>
+
+<style>
+  .section {
+    margin-top: var(--section-spacing, 4rem);
+  }
+
+  @media (max-width: 800px) {
+    .section {
+      margin-top: var(--section-spacing-mobile, 3rem);
+    }
+  }
+</style>
