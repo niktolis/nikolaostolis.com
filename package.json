@@ -28,7 +28,7 @@
   },
   "homepage": "https://github.com/niktolis/nikolaostolis.com#readme",
   "dependencies": {
-    "astro": "^6.4.2"
+    "astro": "^6.4.4"
   },
   "engines": {
     "node": ">=22.12.0"
